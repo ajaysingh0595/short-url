@@ -1,8 +1,7 @@
 // App variable initialization
 //
 // Note the connectionString is initialized from an environment variable
-var PORT = 3000;
-var MongoDb = "mongodb://localhost:27017/urlshort";
+const config= require('./config/config');
 const controller = require('./controller/url');
 const Counter = require('./model/counter');
 const url=new controller();
@@ -12,8 +11,8 @@ var express = require('express'),
     http = require('http').Server(app),
     mongoose = require('mongoose'),
     promise,
-    connectionString = MongoDb,
-    port = PORT || 8080;
+    connectionString = config.mongoDB,
+    port = config.PORT || 8080;
 
 // ExpressJS server start
 http.listen(port, function () {
