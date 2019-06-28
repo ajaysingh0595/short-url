@@ -1,10 +1,10 @@
 // App variable initialization
 //
 // Note the connectionString is initialized from an environment variable
-const config= require('./config/config');
+const config = require('./config/config');
 const controller = require('./controller/url');
 const Counter = require('./model/counter');
-const url=new controller();
+const url = new controller();
 var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
@@ -35,12 +35,15 @@ app.get('/', function (req, res) {
 // Connect to the MongoDB instance
 promise = mongoose.connect(connectionString, {
     useMongoClient: true
+}, function (err) {
+    if (err) console.log(err);
 });
 
 // Reset the app to default values when starting the server
 //
 // WARNING: Do this only when you want a fresh instance of the application else
 // comment the code.
+
 promise.then(function (db) {
     console.log('APP: Connected to MongoDB');
     URL.remove({}, function () {
@@ -59,5 +62,6 @@ promise.then(function (db) {
         });
     });
 });
+
 app.get('/:hash', url.redirectionUrl)
 app.post('/shorten', url.shortenUrl);

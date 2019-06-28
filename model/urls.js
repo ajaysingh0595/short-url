@@ -15,6 +15,7 @@ var urlSchema = new mongoose.Schema({
 urlSchema.pre('save', function (next) {
     console.log('APP: Running pre-save');
     var that = this;
+    //console.log(Counter);
     Counter.findByIdAndUpdate({ _id: 'url_count' }, { $inc: { count: 1 } }, function (err, counter) {
         if (err) {
             console.error('APP: Error while finding and updating counter value');
